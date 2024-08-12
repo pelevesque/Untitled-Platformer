@@ -1,3 +1,6 @@
+local Draft = require('draft/draft')
+local draft = Draft()
+
 function love.draw()
-    -- love.graphics.print("Hello World", 400, 300)
+    draft:rectangle(960, 540, 1200, 800, 'line')
 end
