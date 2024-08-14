@@ -20,6 +20,12 @@ offset.x = (window.width / 2) - (view.width / 2) + (tile.size / 2)
 offset.y = (window.height / 2) - (view.height / 2) + (tile.size / 2)
 ----------------------------------------------------------------------
 
+-- 0 = space
+-- 1 = wall
+-- 2 = red door
+-- 3 = green door
+-- 4 = blue door
+
 local map = {}
 for line in love.filesystem.lines('levels/01.lvl') do
     local lineTable = {}
@@ -35,15 +41,38 @@ function love.draw()
         -- Draw tiles.
     for i = 0, (view.width / tile.size) - 1, 1 do
         for j = 0, (view.height / tile.size) - 1, 1 do
-            local style
-            if (map[j + 1][i + 1] == '1') then style = 'line' else style = 'fill' end
+            local block = map[j + 1][i + 1]
+
+            -- outline
+            love.graphics.setColor(1, 1, 1)
             draft:rectangle(
                 (i * tile.size) + offset.x,
                 (j * tile.size) + offset.y,
                 tile.size,
                 tile.size,
-                style
+                'line'
             )
+
+            -- block
+            if (block == '0') then
+                love.graphics.setColor(1, 1, 1)
+            elseif (block == '1') then
+                love.graphics.setColor(0, 0, 0)
+            elseif (block == '2') then
+                love.graphics.setColor(1, 0, 0)
+            elseif (block == '3') then
+                love.graphics.setColor(0, 1, 0)
+            elseif (block == '4') then
+                love.graphics.setColor(0, 0, 1)
+            end
+            draft:rectangle(
+                (i * tile.size) + offset.x,
+                (j * tile.size) + offset.y,
+                tile.size,
+                tile.size,
+                'fill'
+            )
+
         end
     end
 end
