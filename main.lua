@@ -7,13 +7,13 @@ tile.size = 32
 
     -- Size of main window.
 local window = {} -- How to get from conf.lua?
-window.width = 1920
-window.height = 1080
+window.width = 1224
+window.height = 1032
 
     -- Size of game view
 local view = {} -- size of game view
-view.width = 800 -- multiple of tile size 32 (25)
-view.height = 640 -- multiple of tile size 32 (20)
+view.width = 1024 -- multiple of tile size 32 (32)
+view.height = 832 -- multiple of tile size 32 (26)
 
 local offset = {}
 offset.x = (window.width / 2) - (view.width / 2) + (tile.size / 2)
