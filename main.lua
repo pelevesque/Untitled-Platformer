@@ -45,6 +45,8 @@ function love.load()
     player.w = 50
     player.h = 64
     player.speed = 5
+    player.dropping = true
+    player.dropSpeed = 15
     player.col = {}
     player.row = {}
     player.row.top = math.floor((player.y - (player.h / 2) - margin.top) / tile.size) + 1
@@ -62,6 +64,19 @@ function love.update(dt)
     player.row.bottom = math.floor((player.y + (player.h / 2) - margin.top) / tile.size) + 1
     player.col.left = math.floor((player.x - (player.w / 2) - margin.left) / tile.size) + 1
     player.col.right = math.floor((player.x + (player.w / 2) - margin.left) / tile.size) + 1
+    -- Not really works if the player is really wide.. need to think this over...
+    -- This is dirty, maybe we can have a break.
+    player.dropping = true
+    if player.row.bottom > 0 and player.row.bottom < 27 then
+        for i = player.col.left, player.col.right, 1 do
+            if (i > 0 and i < 33 and map[player.row.bottom][i] == '1') then
+                player.dropping = false
+                break
+            end
+        end
+    end
+    if player.dropping then player.y = player.y + player.dropSpeed end
+    -- ajust player to the top of the bottom row -- how to find...
 end
 
 function love.draw()
@@ -113,4 +128,6 @@ function love.draw()
     love.graphics.print('player col right: ' .. player.col.right, 10, 30)
     love.graphics.print('player row top: ' .. player.row.top, 10, 50)
     love.graphics.print('player row bottom: ' .. player.row.bottom, 10, 70)
+
+    love.graphics.print('block type: ' .. map[player.row.bottom][player.col.left], 200, 10)
 end
