@@ -35,6 +35,20 @@ for line in love.filesystem.lines('levels/01.lvl') do
     table.insert(map, lineTable)
 end
 
+function love.load()
+    player = {}
+    player.x = 500
+    player.y = 400
+    player.speed = 5
+end
+
+function love.update(dt)
+    if love.keyboard.isDown('w') then player.y = player.y - player.speed end
+    if love.keyboard.isDown('s') then player.y = player.y + player.speed end
+    if love.keyboard.isDown('a') then player.x = player.x - player.speed end
+    if love.keyboard.isDown('d') then player.x = player.x + player.speed end
+end
+
 function love.draw()
         -- Draw frame around view.
     draft:rectangle(window.width / 2, window.height / 2, view.width, view.height, 'line')
@@ -72,7 +86,9 @@ function love.draw()
                 tile.size,
                 'fill'
             )
-
         end
     end
+        -- Draw player.
+    love.graphics.setColor(0, 1, 1, 0.5)
+    draft:rectangle(player.x, player.y, 50, 64, 'fill')
 end
