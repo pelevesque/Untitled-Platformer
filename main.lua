@@ -36,10 +36,21 @@ for line in love.filesystem.lines('levels/01.lvl') do
 end
 
 function love.load()
+    margin = {}
+    margin.top = (window.height - view.height) / 2
+    margin.left = (window.width - view.width) / 2
     player = {}
     player.x = 500
     player.y = 400
+    player.w = 50
+    player.h = 64
     player.speed = 5
+    player.col = {}
+    player.row = {}
+    player.row.top = math.floor((player.y - (player.h / 2) - margin.top) / tile.size) + 1
+    player.row.bottom = math.floor((player.y + (player.h / 2) - margin.top) / tile.size) + 1
+    player.col.left = math.floor((player.x - (player.w / 2) - margin.left) / tile.size) + 1
+    player.col.right = math.floor((player.x + (player.w / 2) - margin.left) / tile.size) + 1
 end
 
 function love.update(dt)
@@ -47,6 +58,10 @@ function love.update(dt)
     if love.keyboard.isDown('s') then player.y = player.y + player.speed end
     if love.keyboard.isDown('a') then player.x = player.x - player.speed end
     if love.keyboard.isDown('d') then player.x = player.x + player.speed end
+    player.row.top = math.floor((player.y - (player.h / 2) - margin.top) / tile.size) + 1
+    player.row.bottom = math.floor((player.y + (player.h / 2) - margin.top) / tile.size) + 1
+    player.col.left = math.floor((player.x - (player.w / 2) - margin.left) / tile.size) + 1
+    player.col.right = math.floor((player.x + (player.w / 2) - margin.left) / tile.size) + 1
 end
 
 function love.draw()
@@ -90,5 +105,12 @@ function love.draw()
     end
         -- Draw player.
     love.graphics.setColor(0, 1, 1, 0.5)
-    draft:rectangle(player.x, player.y, 50, 64, 'fill')
+    draft:rectangle(player.x, player.y, player.w, player.h, 'fill')
+
+        -- Draw info.
+    love.graphics.setColor(1, 1, 1)
+    love.graphics.print('player col left: ' .. player.col.left, 10, 10)
+    love.graphics.print('player col right: ' .. player.col.right, 10, 30)
+    love.graphics.print('player row top: ' .. player.row.top, 10, 50)
+    love.graphics.print('player row bottom: ' .. player.row.bottom, 10, 70)
 end
