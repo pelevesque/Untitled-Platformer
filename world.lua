@@ -100,16 +100,11 @@ function World.new()
                 )
 
                 -- block
-                if (block == '0') then
-                    love.graphics.setColor(1, 1, 1)
-                elseif (block == '1') then
-                    love.graphics.setColor(0, 0, 0)
-                elseif (block == '2') then
-                    love.graphics.setColor(1, 0, 0)
-                elseif (block == '3') then
-                    love.graphics.setColor(0, 1, 0)
-                elseif (block == '4') then
-                    love.graphics.setColor(0, 0, 1)
+                if     (block == '0') then love.graphics.setColor(1, 1, 1)
+                elseif (block == '1') then love.graphics.setColor(0, 0, 0)
+                elseif (block == '2') then love.graphics.setColor(1, 0, 0)
+                elseif (block == '3') then love.graphics.setColor(0, 1, 0)
+                elseif (block == '4') then love.graphics.setColor(0, 0, 1)
                 end
                 draft:rectangle(
                     (i * tile.size) + offset.x,
