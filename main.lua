@@ -1,9 +1,13 @@
 local Draft = require('draft/draft')
 local draft = Draft()
 
+local Player = require('Player')
+
 ----------------------------------------------------------------------
 local tile = {}
 tile.size = 32
+tile.w = 32
+tile.h = 26
 
     -- Size of main window.
 local window = {} -- How to get from conf.lua?
@@ -26,57 +30,29 @@ offset.y = (window.height / 2) - (view.height / 2) + (tile.size / 2)
 -- 3 = green door
 -- 4 = blue door
 
-local map = {}
-for line in love.filesystem.lines('levels/01.lvl') do
-    local lineTable = {}
-    for char in string.gmatch(line, '%d') do
-         table.insert(lineTable, char)
+function loadMap(level)
+    local map = {}
+    for line in love.filesystem.lines('levels/' .. tostring(level) .. '.lvl') do
+        local lineTable = {}
+        for char in string.gmatch(line, '%d') do
+             table.insert(lineTable, char)
+        end
+        table.insert(map, lineTable)
     end
-    table.insert(map, lineTable)
+    return map
 end
+
+local map = loadMap(0)
 
 function love.load()
     margin = {}
     margin.top = (window.height - view.height) / 2
     margin.left = (window.width - view.width) / 2
-    player = {}
-    player.x = 500
-    player.y = 400
-    player.w = 50
-    player.h = 64
-    player.speed = 5
-    player.dropping = true
-    player.dropSpeed = 15
-    player.col = {}
-    player.row = {}
-    player.row.top = math.floor((player.y - (player.h / 2) - margin.top) / tile.size) + 1
-    player.row.bottom = math.floor((player.y + (player.h / 2) - margin.top) / tile.size) + 1
-    player.col.left = math.floor((player.x - (player.w / 2) - margin.left) / tile.size) + 1
-    player.col.right = math.floor((player.x + (player.w / 2) - margin.left) / tile.size) + 1
+    playerA = Player.new('james', 500, 400, tile.size, tile.w, tile.h, margin.left, margin.top, map)
 end
 
 function love.update(dt)
-    if love.keyboard.isDown('w') then player.y = player.y - player.speed end
-    if love.keyboard.isDown('s') then player.y = player.y + player.speed end
-    if love.keyboard.isDown('a') then player.x = player.x - player.speed end
-    if love.keyboard.isDown('d') then player.x = player.x + player.speed end
-    player.row.top = math.floor((player.y - (player.h / 2) - margin.top) / tile.size) + 1
-    player.row.bottom = math.floor((player.y + (player.h / 2) - margin.top) / tile.size) + 1
-    player.col.left = math.floor((player.x - (player.w / 2) - margin.left) / tile.size) + 1
-    player.col.right = math.floor((player.x + (player.w / 2) - margin.left) / tile.size) + 1
-    -- Not really works if the player is really wide.. need to think this over...
-    -- This is dirty, maybe we can have a break.
-    player.dropping = true
-    if player.row.bottom > 0 and player.row.bottom < 27 then
-        for i = player.col.left, player.col.right, 1 do
-            if (i > 0 and i < 33 and map[player.row.bottom][i] == '1') then
-                player.dropping = false
-                break
-            end
-        end
-    end
-    if player.dropping then player.y = player.y + player.dropSpeed end
-    -- ajust player to the top of the bottom row -- how to find...
+    playerA:update(dt)
 end
 
 function love.draw()
@@ -119,15 +95,5 @@ function love.draw()
         end
     end
         -- Draw player.
-    love.graphics.setColor(0, 1, 1, 0.5)
-    draft:rectangle(player.x, player.y, player.w, player.h, 'fill')
-
-        -- Draw info.
-    love.graphics.setColor(1, 1, 1)
-    love.graphics.print('player col left: ' .. player.col.left, 10, 10)
-    love.graphics.print('player col right: ' .. player.col.right, 10, 30)
-    love.graphics.print('player row top: ' .. player.row.top, 10, 50)
-    love.graphics.print('player row bottom: ' .. player.row.bottom, 10, 70)
-
-    love.graphics.print('block type: ' .. map[player.row.bottom][player.col.left], 200, 10)
+    playerA:draw()
 end
