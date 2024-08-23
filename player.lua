@@ -22,7 +22,7 @@ function Player.new(name, x , y, tileSize, numRows, numCols, xMargin, yMargin, m
     local h = 64
     local speed = 300
     local isFalling = false
-    local fallSpeed = 15
+    local fallSpeed = 300
     local r = 0
     local g = 1
     local b = 2
@@ -68,7 +68,7 @@ function Player.new(name, x , y, tileSize, numRows, numCols, xMargin, yMargin, m
                 end
             end
         end
-        if isFalling then y = y + fallSpeed end
+        if isFalling then y = y + fallSpeed * dt end
         -- ajust player to the top of the bottom row -- how to find...
     end
 
