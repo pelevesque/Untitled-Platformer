@@ -3,7 +3,7 @@ local draft = Draft()
 
 local Player = {}
 
-function Player.new(name, x , y, tileSize, numRows, numCols, xOffset, yOffset, map)
+function Player.new(name, x , y, tileSize, numRows, numCols, xMargin, yMargin, map)
 
     ----------------------------------------------------------------------
     -- Variables
@@ -61,10 +61,10 @@ function Player.new(name, x , y, tileSize, numRows, numCols, xOffset, yOffset, m
     end
 
     function self:updateTilePosition()
-        tilePosition.row.top    = math.floor((y - (h / 2) - yOffset) / tileSize) + 1
-        tilePosition.row.bottom = math.floor((y + (h / 2) - yOffset) / tileSize) + 1
-        tilePosition.col.left   = math.floor((x - (w / 2) - xOffset) / tileSize) + 1
-        tilePosition.col.right  = math.floor((x + (w / 2) - xOffset) / tileSize) + 1
+        tilePosition.row.top    = math.floor((y - (h / 2) - yMargin) / tileSize) + 1
+        tilePosition.row.bottom = math.floor((y + (h / 2) - yMargin) / tileSize) + 1
+        tilePosition.col.left   = math.floor((x - (w / 2) - xMargin) / tileSize) + 1
+        tilePosition.col.right  = math.floor((x + (w / 2) - xMargin) / tileSize) + 1
     end
 
     ----------------------------------------------------------------------
