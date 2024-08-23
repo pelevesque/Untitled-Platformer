@@ -20,7 +20,7 @@ function Player.new(name, x , y, tileSize, numRows, numCols, xMargin, yMargin, m
     local yOffset = yOffset
     local w = 50
     local h = 64
-    local speed = 5
+    local speed = 300
     local isFalling = false
     local fallSpeed = 15
     local r = 0
@@ -32,15 +32,27 @@ function Player.new(name, x , y, tileSize, numRows, numCols, xMargin, yMargin, m
     tilePosition.row = {}
     tilePosition.col = {}
 
+    local joysticks = love.joystick.getJoysticks()
+    local joystick = joysticks[1]
+
     ----------------------------------------------------------------------
     -- Update
 
     function self:update(dt)
             -- Move player.
-        if love.keyboard.isDown('w') then y = y - speed end
-        if love.keyboard.isDown('s') then y = y + speed end
-        if love.keyboard.isDown('a') then x = x - speed end
-        if love.keyboard.isDown('d') then x = x + speed end
+        if love.keyboard.isDown('w') then y = y - speed * dt end
+        if love.keyboard.isDown('s') then y = y + speed * dt end
+        if love.keyboard.isDown('a') then x = x - speed * dt end
+        if love.keyboard.isDown('d') then x = x + speed * dt end
+
+        if joystick then
+            if     joystick:isGamepadDown("dpleft")  then x = x - speed * dt
+            elseif joystick:isGamepadDown("dpright") then x = x + speed * dt
+            end
+            if     joystick:isGamepadDown("dpup")    then y = y - speed * dt
+            elseif joystick:isGamepadDown("dpdown")  then y = y + speed * dt
+            end
+        end
 
         self:updateTilePosition()
 
