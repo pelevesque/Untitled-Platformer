@@ -3,25 +3,15 @@ local Player = require('Player')
 
 function love.load()
     world = World.new()
-    playerA = Player.new(
-        'Bobby',
-        world.getPlayerAStartX(),
-        world.getPlayerAStartY(),
-        world.getTileSize(),
-        world.getTileW(),
-        world.getTileH(),
-        world.getMarginLeft(),
-        world.getMarginTop(),
-        world.getMap()
-    )
+    player = Player.new()
 end
 
 function love.update(dt)
     world:update(dt)
-    playerA:update(dt)
+    player:update(dt)
 end
 
 function love.draw()
     world:draw()
-    playerA:draw()
+    player:draw()
 end
