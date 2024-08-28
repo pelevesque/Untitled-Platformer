@@ -3,7 +3,7 @@ local Player = require('Player')
 
 function love.load()
     world = World.new()
-    player = Player.new()
+    player = Player.new(world.getMap())
 end
 
 function love.update(dt)

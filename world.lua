@@ -23,6 +23,8 @@ function World.new()
     end
     self:loadMap(s.levels.start)
 
+    function self:getMap() return map end
+
     -- Update --------------------------------------------------------
 
     function self:update(dt)
