@@ -76,6 +76,9 @@ function Player.new(map)
     -- Update --------------------------------------------------------
 
     function self:update(dt)
+            -- Apply gravity.
+        pos.ty = pos.ty + (gravity * dt)
+
         local distance = speed * dt
 
         if love.keyboard.isDown('w') then pos.ty = pos.ty - distance end

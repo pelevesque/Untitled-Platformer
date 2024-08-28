@@ -30,7 +30,7 @@ s.player = {}
     s.player.w = 30 -- Must be even
     s.player.h = 50 -- Must be even
     s.player.speed = 1400
-    s.gravity = 400
+    s.gravity = 800
 
     s.playfield.offset.x = (s.window.w - s.playfield.w) / 2 -- Centered
     s.playfield.offset.y = (s.window.h - s.playfield.h) / 2 -- Centered
