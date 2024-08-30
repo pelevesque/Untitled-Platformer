@@ -1,7 +1,30 @@
-local World = require('World')
-local Player = require('Player')
+local s = require('setup')
+local World = require('world')
+local Player = require('player')
+
+function loadFont()
+    font = love.graphics.newFont(s.font.file, s.font.size)
+    love.graphics.setFont(font)
+end
+
+function drawControls()
+    love.graphics.setColor(s.colors.debug)
+    love.graphics.print('CONTROLS', 1280, 46)
+    love.graphics.print('left:  s', 1280, 100)
+    love.graphics.print('right: d', 1280, 125)
+    love.graphics.print('jump:  w', 1280, 150)
+    love.graphics.print('reset: r', 1280, 175)
+end
+
+function drawGoal()
+    love.graphics.setColor(0, 1, 0)
+    love.graphics.print('Get the red dots! ', 1240, 225)
+end
+
+----------------------------------------------------------------------
 
 function love.load()
+    loadFont()
     world = World.new()
     player = Player.new(world.getMap())
 end
@@ -12,6 +35,8 @@ function love.update(dt)
 end
 
 function love.draw()
-    world:draw()
+    drawControls()
+    drawGoal()
     player:draw()
+    world:draw()
 end

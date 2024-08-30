@@ -1,0 +1,16 @@
+Revision history for Untitled Platformer
+
+0.1.0
+
+    "
+        Initial release with a world and a player.
+        The player can move left and right, jump,
+        and grab targets. There is a bug that makes
+        it possible for the player to stick to the ceiling
+        while the jump button is pressed.
+    "
+
+    - Initial release
+    - Add basic world with player
+    - Player moves left and right, and jumps
+    - Add two grabbable targets
