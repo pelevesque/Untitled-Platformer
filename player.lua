@@ -61,6 +61,7 @@ function Player.new(map)
 
         if love.keyboard.isDown('w') and yVelocity == 0 then
             yVelocity = jumpHeight
+            jumpSound:play()
         end
 
         if yVelocity ~= 0 then

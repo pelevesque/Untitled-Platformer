@@ -24,6 +24,10 @@ end
 ----------------------------------------------------------------------
 
 function love.load()
+    jumpSound = love.audio.newSource('sounds/535890__jerimee__coin-jump.wav', 'static')
+    music = love.audio.newSource('music/697844__geoff-bremner-audio__free-8-bit-video-game-style-music.wav', 'stream')
+    music:setLooping(true)
+    music:play()
     loadFont()
     world = World.new()
     player = Player.new(world.getMap())

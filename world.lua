@@ -4,6 +4,9 @@ local World = {}
 function World.new()
     local self = {}
 
+    local cloud = {}
+    cloud.x = 100
+
     -- Map -----------------------------------------------------------
 
     local map = {}
@@ -28,12 +31,14 @@ function World.new()
     -- Update --------------------------------------------------------
 
     function self:update(dt)
+        cloud.x = cloud.x + (10 * dt)
     end
 
     -- Draw ----------------------------------------------------------
 
     function self:draw()
         self:drawTiles()
+        self:drawClouds()
     end
 
     function self:drawTiles()
@@ -53,6 +58,14 @@ function World.new()
                 love.graphics.rectangle('line', x, y, w, h)
             end
         end
+    end
+
+    function self:drawClouds()
+        love.graphics.setColor(1, 1, 1, 0.3)
+        love.graphics.circle('fill', cloud.x, 400, 50)
+        love.graphics.circle('fill', cloud.x + 20, 410, 10)
+        love.graphics.circle('fill', cloud.x + 10, 450, 20)
+        love.graphics.circle('fill', cloud.x - 10, 420, 34)
     end
 
     return self
