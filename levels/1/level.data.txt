@@ -1,0 +1,3 @@
+player = row:35 col:32
+back = false
+front = false

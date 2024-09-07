@@ -17,6 +17,7 @@ function Player.new(map)
     local color = s.colors.player
     local yVelocity = 0
     local jumpHeight = s.player.jumpHeight
+    local score = 0
 
         -- WARNING! Hard coded.
     local targets = {
@@ -59,6 +60,8 @@ function Player.new(map)
 
     function self:update(dt)
 
+        score = score + 1
+
         if love.keyboard.isDown('w') and yVelocity == 0 then
             yVelocity = jumpHeight
             jumpSound:play()
@@ -93,7 +96,7 @@ function Player.new(map)
         end
 
             -- Wrap player from bottom to top.
-        if pos.ty > s.playfield.h then
+        if pos.ty > s.window.h then
             pos.ty = -h
         end
 
@@ -124,6 +127,7 @@ function Player.new(map)
         if s.debug then self:drawInfos() end
         self:drawPlayer()
         self:drawDotGotIndicator()
+        love.graphics.print(score, 10, 10)
     end
 
     function self:drawInfos()
@@ -142,8 +146,8 @@ function Player.new(map)
 
     function self:drawPlayer()
         love.graphics.setColor(color)
-        local x = math.floor(pos.lx) + s.playfield.offset.x
-        local y = math.floor(pos.ty) + s.playfield.offset.y
+        local x = math.floor(pos.lx)
+        local y = math.floor(pos.ty)
         love.graphics.rectangle('fill', x, y, w, h)
     end
 
@@ -159,6 +163,7 @@ function Player.new(map)
     end
 
     return self
+
 end
 
 return Player

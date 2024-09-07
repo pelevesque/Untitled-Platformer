@@ -14,4 +14,8 @@ function Utils:dump(o)
     end
 end
 
+function Utils:randomFloat(min, max)
+    return math.random() * (max - min) + min
+end
+
 return Utils
