@@ -4,12 +4,45 @@
 
 local Starfield = require('starfield')
 
+local starfieldOptions = {
+    numStars = 3000,
+    star = {
+        vx = { min = 0, max = 0 },
+        vy = { min = 0,  max = 0  },
+        radius = { min = 1, max = 400 },
+        color = {
+            red =   { min = 0, max = 1 },
+            green = { min = 0, max = 1 },
+            blue =  { min = 0, max = 1 },
+            alpha = { min = 0, max = 0.2 },
+        },
+        drawMode = 0.5, -- 0 = line, 1 = fill, 0.6 = 60% fill
+    },
+}
+
+local starfieldOptions2 = {
+    numStars = 300,
+    star = {
+        vx = { min = 10, max = 10 },
+        vy = { min = 0, max = 0  },
+        radius = { min = 1, max = 2 },
+        color = {
+            red =   { min = 0, max = 1 },
+            green = { min = 0, max = 1 },
+            blue =  { min = 0, max = 1 },
+            alpha = { min = 1, max = 1 },
+        },
+        drawMode = 1, -- 0 = line, 1 = fill, 0.6 = 60% fill
+    },
+}
+
 function love.load()
-    starfield = Starfield.new()
+    starfield = Starfield.new(starfieldOptions2)
 end
 
 function love.update(dt)
     starfield:update(dt)
+    --starfield = Starfield.new(starfieldOptions2)
 end
 
 function love.draw()
